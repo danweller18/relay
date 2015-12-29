@@ -61,11 +61,9 @@ void loop() {
     Serial.print("xbase: ");
     Serial.print(xbase);
     Serial.print("\t");
-  
     Serial.print("ybase: ");
     Serial.print(ybase);
     Serial.print("\t");
-  
     Serial.print("zbase: ");
     Serial.print(zbase);
     Serial.print("\n");
@@ -79,58 +77,64 @@ void loop() {
     float y2 = analogRead(ypin);
     delay(1); 
     float z2 = analogRead(zpin);
-  
+
+    //convert to g
     float x2axis = (x2 - zero_G)/scale;
     float y2axis = (y2 - zero_G)/scale;
     float z2axis = (z2 - zero_G)/scale;
-    
-    Serial.print("x: ");
+
+    //round 2
+    Serial.print("x2base: ");
     Serial.print(x2axis);
     Serial.print("\t");
-  
-    Serial.print("y: ");
+    Serial.print("y2base: ");
     Serial.print(y2axis);
     Serial.print("\t");
-  
-    Serial.print("z: ");
+    Serial.print("z2base: ");
     Serial.print(z2axis);
     Serial.print("\n");
   
-    //set abs X values
-    float absc = abs(0.00);
-    Serial.print("absc\t");
+    //set abs contstant values
+    float absc = fabs(0.00);
+    Serial.print("absc: ");
     Serial.print(absc);
     Serial.print("\n");
-    float absx2 = abs(x2axis);
-    Serial.print("abx2\t");
+    
+    //set abs X values
+    float absx2 = fabs(x2axis);
+    Serial.print("absx2: ");
     Serial.print(absx2);
-    Serial.print("\n");
-    float absxb = abs(xbase);
-    Serial.print("absxb\t");
+    Serial.print("\t");
+    float absxb = fabs(xbase);
+    Serial.print("absxb: ");
     Serial.print(absxb);
     Serial.print("\n");
   
     //set abs Y values
-    float absy2 = abs(y2axis);
+    float absy2 = fabs(y2axis);
+    Serial.print("absy2: ");
     Serial.print(absy2);
-    Serial.print("\n");
-    float absyb = abs(ybase);
+    Serial.print("\t");
+    float absyb = fabs(ybase);
+    Serial.print("absyb: ");
     Serial.print(absyb);
     Serial.print("\n");
   
     //set abs Z values
-    float absz2 = abs(z2axis);
+    float absz2 = fabs(z2axis);
+    Serial.print("absz2: ");
     Serial.print(absz2);
-    Serial.print("\n");
-    float abszb = abs(zbase);
+    Serial.print("\t");
+    float abszb = fabs(zbase);
+    Serial.print("abszb: ");
     Serial.print(abszb);
-    Serial.print("\n");
+    Serial.print("\n\n");
   
     //if they stop moving- stop
     if ((absx2 - absxb) == absc && (absy2 - absyb) == absc && (absz2 - abszb) == absc) {
       //turn relay off
       digitalWrite(RELAY, HIGH);
-      Serial.print("\n\noff");
+      Serial.print("\noff\n");
     }
     
     // delay before next reading:
